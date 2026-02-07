@@ -1,17 +1,39 @@
 # LegalPro - Backend (Gestión de Casos) - SGLPWEB
 
-Backend mínimo funcional para el caso de estudio **LegalPro** (módulo de Gestión de Casos):
-- Registro de clientes y casos con **número de caso único**
-- Seguimiento de **plazos/calendario** por caso (audiencias, vencimientos, etc.)
-- **Asignación de tareas** por caso (prioridad, fecha límite, estado)
-- Evidencias por tarea (metadatos / URL o nombre de archivo)
-- Portal de cliente **solo lectura** (visualiza casos y avances, no modifica)
+Backend mínimo funcional para el caso de estudio **LegalPro**
+(módulo de Gestión de Casos del sistema SGLPWEB).
 
-> Nota del examen: se implementa únicamente Back-End (API + BD). No incluye Front-End.
+> **Nota del examen:**  
+> Este proyecto implementa únicamente el **Back-End (API + Base de Datos)**,
+> conforme a lo solicitado en el enunciado.  
+> **No incluye Front-End.**
+
+## Funcionalidades principales
+- Registro de clientes.
+- Registro de casos legales con **número de caso único**.
+- Seguimiento de plazos y calendario por caso (audiencias, vencimientos, etc.).
+- Gestión de tareas por caso (prioridad, fecha límite y estado).
+- Registro de evidencias por tarea (metadatos / URL / nombre de archivo).
+- Portal de cliente **solo lectura** (visualización de casos y avances).
+
+---
+
+## Arquitectura
+La solución utiliza una **arquitectura N-Capas**, separando:
+- **Presentación:** API REST (FastAPI).
+- **Lógica de negocio:** validaciones y reglas del sistema.
+- **Acceso a datos:** SQLAlchemy ORM.
+- **Persistencia:** Base de datos relacional.
+
+Esta arquitectura facilita el mantenimiento, la escalabilidad y la separación de responsabilidades.
+
+---
 
 ## Requisitos
 - Python 3.10+ (recomendado 3.11)
 - (Opcional) Visual Studio Code
+
+---
 
 ## Instalación y ejecución
 
@@ -21,21 +43,3 @@ python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 uvicorn app.main:app --reload
-```
-
-### Windows (PowerShell)
-```bash
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-uvicorn app.main:app --reload
-```
-
-## Probar en Swagger
-- Swagger UI: http://127.0.0.1:8000/docs
-
-## Base de datos
-Por defecto usa SQLite local (archivo `legalpro.db`).
-
-Incluye script SQL de referencia:
-- `sql/schema.sql`
