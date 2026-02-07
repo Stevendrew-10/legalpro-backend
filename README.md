@@ -1,4 +1,4 @@
-# LegalPro - Backend (Gestión de casos) - SGLPWEB
+# LegalPro - Backend (Gestión de casos) - SGLPWEB - Steven Freire
 
 Backend mínimo funcional para el caso de estudio LegalPro
 (módulo de Gestión de Casos del sistema SGLPWEB).
