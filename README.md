@@ -1,25 +1,25 @@
-# LegalPro - Backend (Gestión de Casos) - SGLPWEB
+# LegalPro - Backend (Gestión de casos) - SGLPWEB
 
-Backend mínimo funcional para el caso de estudio **LegalPro**
+Backend mínimo funcional para el caso de estudio LegalPro
 (módulo de Gestión de Casos del sistema SGLPWEB).
 
-> **Nota del examen:**  
-> Este proyecto implementa únicamente el **Back-End (API + Base de Datos)**,
+> Nota del examen:
+> Este proyecto implementa únicamente el Back-End (API + Base de Datos),
 > conforme a lo solicitado en el enunciado.  
-> **No incluye Front-End.**
+> No incluye Front-End.
 
 ## Funcionalidades principales
 - Registro de clientes.
-- Registro de casos legales con **número de caso único**.
+- Registro de casos legales con número de caso único.
 - Seguimiento de plazos y calendario por caso (audiencias, vencimientos, etc.).
 - Gestión de tareas por caso (prioridad, fecha límite y estado).
 - Registro de evidencias por tarea (metadatos / URL / nombre de archivo).
-- Portal de cliente **solo lectura** (visualización de casos y avances).
+- Portal de cliente solo lectura (visualización de casos y avances).
 
 ---
 
 ## Arquitectura
-La solución utiliza una **arquitectura N-Capas**, separando:
+La solución utiliza una arquitectura N-Capas, separando:
 - **Presentación:** API REST (FastAPI).
 - **Lógica de negocio:** validaciones y reglas del sistema.
 - **Acceso a datos:** SQLAlchemy ORM.
