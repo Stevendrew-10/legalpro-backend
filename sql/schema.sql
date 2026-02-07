@@ -1,0 +1,61 @@
+PRAGMA foreign_keys = ON;
+
+CREATE TABLE IF NOT EXISTS clients (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  full_name TEXT NOT NULL,
+  email TEXT,
+  phone TEXT
+);
+
+CREATE TABLE IF NOT EXISTS team_members (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  full_name TEXT NOT NULL,
+  role TEXT
+);
+
+CREATE TABLE IF NOT EXISTS cases (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  case_number TEXT NOT NULL UNIQUE,
+  client_id INTEGER NOT NULL,
+  case_type TEXT NOT NULL,
+  start_date TEXT NOT NULL,
+  details TEXT,
+  status TEXT NOT NULL DEFAULT 'ABIERTO' CHECK (status IN ('ABIERTO','EN_PROCESO','CERRADO')),
+  FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE RESTRICT
+);
+
+CREATE TABLE IF NOT EXISTS deadlines (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  case_id INTEGER NOT NULL,
+  title TEXT NOT NULL,
+  due_date TEXT NOT NULL,
+  kind TEXT NOT NULL,
+  notes TEXT,
+  remind_days_before INTEGER NOT NULL DEFAULT 3 CHECK (remind_days_before >= 0),
+  status TEXT NOT NULL DEFAULT 'PENDIENTE' CHECK (status IN ('PENDIENTE','CUMPLIDO','VENCIDO')),
+  FOREIGN KEY (case_id) REFERENCES cases(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS tasks (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  case_id INTEGER NOT NULL,
+  assigned_to_id INTEGER,
+  title TEXT NOT NULL,
+  description TEXT,
+  priority INTEGER NOT NULL DEFAULT 2 CHECK (priority IN (1,2,3)),
+  due_date TEXT NOT NULL,
+  status TEXT NOT NULL DEFAULT 'PENDIENTE' CHECK (status IN ('PENDIENTE','EN_PROCESO','COMPLETADA')),
+  completed_at TEXT,
+  FOREIGN KEY (case_id) REFERENCES cases(id) ON DELETE CASCADE,
+  FOREIGN KEY (assigned_to_id) REFERENCES team_members(id) ON DELETE SET NULL
+);
+
+CREATE TABLE IF NOT EXISTS task_evidences (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  task_id INTEGER NOT NULL,
+  filename TEXT,
+  url TEXT,
+  notes TEXT,
+  created_at TEXT NOT NULL DEFAULT (datetime('now')),
+  FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE
+);
